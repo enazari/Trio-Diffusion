@@ -1,0 +1,101 @@
+session: dino_large_32
+
+data:
+  num_images: 10000
+  trio_block_size: 32
+  batch_size: 200
+  step_size: 16
+  samples_per_epoch: 100000
+  num_workers: 12
+  eval_samples_per_image: 250
+  normalize_range: [-1.0, 1.0]
+  enable_edge_sampling: true
+
+model:
+  input_channels: 4
+  output_channels: 3
+  base_channels: 96
+  time_embedding_dim: 256
+  use_attention: true
+  dropout: 0.1
+  # Encode each patch's (row, col) grid position via sinusoidal embeddings
+  # added to the time embedding. Gives the model awareness of WHERE in the
+  # image it is generating. Set to false to reproduce pre-position-encoding runs.
+  use_position_encoding: true
+  # Add 2 normalized coordinate map channels to model input, giving per-pixel
+  # position awareness (Patch Diffusion, NeurIPS 2023). Input changes from
+  # [B,4,H,W] to [B,6,H,W]. Can be used alongside use_position_encoding.
+  # Set false to reproduce pre-coordinate-channel runs.
+  use_coordinate_channels: true
+
+backbone:
+  name: dino
+  use_token_position_encoding: true
+
+diffusion:
+  timesteps: 1000
+  beta_start: 0.0001
+  beta_end: 0.02
+  schedule_type: linear
+  sampling_steps: 50
+  eta: 0.0
+  # Probability of dropping the CLIP embedding during training (classifier-free
+  # guidance). 0.15 = CLIP present 85% of the time (standard for CFG).
+  # Higher values weaken the CLIP gradient signal. 0.5 was used in earlier
+  # runs but caused cross-attention gates to remain closed.
+  # Set to 0.5 to reproduce pre-fix runs.
+  cfg_dropout_prob: 0.15
+  guidance_scale: 2.0
+
+training:
+  epochs: 500
+  learning_rate: 0.0002
+  weight_decay: 0.0001
+  warmup_epochs: 10
+  gradient_clip_norm: 1.0
+  use_mixed_precision: true
+  use_teacher_forcing: true
+  use_ema: true
+  ema_decay: 0.9999
+  # LR scheduler type:
+  #   "cosine" — (default, recommended) Single cosine decay from warmup_epochs
+  #       to total epochs. Stepped once per epoch. Produces a smooth curve:
+  #       warmup -> peak -> gradual decay -> 0 at final epoch.
+  #   "cosine_accelerated" — Legacy behavior. Scheduler is also wrapped by
+  #       HuggingFace Accelerate, causing extra steps per optimizer.step().
+  #       This compresses the cosine cycle, making LR reach zero much earlier
+  #       then cycle back up. Use only to reproduce older runs.
+  scheduler_type: "cosine"
+  # Initial value for the cross-attention tanh gate parameter.
+  # 0.0 = gates start closed (CLIP has zero influence initially).
+  #     Risk: with high CFG dropout, gates may never open.
+  # 0.5 = gates start at tanh(0.5) ≈ 0.46 influence.
+  #     Recommended: CLIP has meaningful influence from epoch 1.
+  # Set to 0.0 to reproduce pre-fix runs.
+  cross_attention_gate_init: 0.5
+  # Probability of adding Gaussian noise to the spatial context (TL, TR, BL)
+  # during training. Teaches the model to handle imperfect context patches,
+  # as encountered during autoregressive generation. Set 0.0 to disable.
+  # NOTE: Different from context patch dropout (in the dataset) which zeros
+  # out entire patches. This adds noise to non-zero context.
+  context_noise_prob: 0.3
+  # Maximum scale of Gaussian noise added to context when triggered.
+  # Actual scale is sampled uniformly from [0.05, context_noise_scale].
+  context_noise_scale: 0.2
+
+evaluation:
+  checkpoint_every: 25
+  generate_full_every: 25
+  num_eval_images: 7
+  patches_per_image: 4
+  save_comparisons: true
+  # Number of refinement passes after initial autoregressive generation.
+  # 0 = single pass (current behavior). Each additional pass re-encodes
+  # the canvas with CLIP and re-generates each patch using the previous
+  # pass as context, progressively improving global coherence.
+  # Set to 0 to reproduce pre-fix runs.
+  num_refinement_passes: 2
+  generation_size: 256
+
+device: "cuda"
+seed: 42

@@ -1,0 +1,9 @@
+.env
+__pycache__
+*.pyc
+results/
+datasets/
+sessions/
+pretrained_models/
+patch_cache/
+generation/sessions/

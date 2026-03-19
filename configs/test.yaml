@@ -1,0 +1,63 @@
+session: test
+
+data:
+  dataset_path: /path/to/your/dataset
+  num_images: 10000 #3000
+  trio_block_size: 64
+  batch_size: 2 #70
+  step_size: 32
+  samples_per_epoch: 10 #50000
+  num_workers: 12
+  eval_samples_per_image: 250
+  normalize_range: [-1.0, 1.0]
+  enable_edge_sampling: true
+
+model:
+  input_channels: 4
+  output_channels: 3
+  base_channels: 96
+  time_embedding_dim: 256
+  use_attention: true
+  dropout: 0.1
+  use_position_encoding: true
+  use_coordinate_channels: true
+
+backbone:
+  name: clip
+  use_token_position_encoding: true
+
+diffusion:
+  timesteps: 1000
+  beta_start: 0.0001
+  beta_end: 0.02
+  schedule_type: linear
+  sampling_steps: 50
+  eta: 0.0
+  cfg_dropout_prob: 0.15
+  guidance_scale: 2.0
+
+training:
+  epochs: 5
+  learning_rate: 0.0002
+  weight_decay: 0.0001
+  warmup_epochs: 10
+  gradient_clip_norm: 1.0
+  use_mixed_precision: true
+  use_teacher_forcing: true
+  use_ema: true
+  ema_decay: 0.9999
+  scheduler_type: "cosine"
+  cross_attention_gate_init: 0.5
+  context_noise_prob: 0.3
+  context_noise_scale: 0.2
+
+evaluation:
+  checkpoint_every: 1
+  generate_full_every: 1
+  num_eval_images: 7
+  patches_per_image: 4
+  save_comparisons: true
+  num_refinement_passes: 2
+
+device: "cuda"
+seed: 42
