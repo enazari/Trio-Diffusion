@@ -392,3 +392,7 @@ bash hpc/clip.sh                               # reads .env, self-submits via sb
 ```
 
 </details>
+
+## Acknowledgments
+
+This research was enabled in part by support provided by the Digital Research Alliance of Canada ([alliancecan.ca](https://alliancecan.ca)).
