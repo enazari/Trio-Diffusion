@@ -16,15 +16,19 @@
 
 ### Before you continue
 
-Since this write-up was first published, further experiments have **to a great extent solved the patch seam problem** — later models produce globally seamless canvases with no visible patch boundaries. Creating coherent objects (people, animals, scenes) remains the open problem.
+Since this write-up, further experiments have **largely solved the patch seam problem** — the gallery below shows outputs from a new model design; code and details will be published separately. Note: several inference modes have access to the source image, so coherent objects in those outputs reflect image leakage rather than the model's own generative capability. The honest test is the seedless outputs — those are seamless, but the model cannot yet synthesize coherent scene structure on its own.
 
 <table align="center">
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c27_s1.png" width="380"></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s2.png" width="380"></td>
+    <td align="center"><img src="assets/gallery_banner_1.png" width="380"></td>
+    <td align="center"><img src="assets/gallery_banner_2.png" width="380"></td>
   </tr>
   <tr>
-    <td colspan="2" align="center"><em>Seedless generation (no seed image), 1024×1024, from the C27 weaning-curriculum model. No patch boundaries visible. More in the <a href="#seamless-gallery">seamless outputs gallery</a>.</em></td>
+    <td align="center"><img src="assets/gallery_banner_3.png" width="380"></td>
+    <td align="center"><img src="assets/c21_sweep_arbsize_D_omid-cat_2048.png" width="380"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><em>Top-left: image-CLIP conditioned, no canvas guide (C21, DINOv2). Top-right: image-seeded (C21, DINOv2). Bottom-left: fully seedless 1024×1024 (C27, CLIP). Bottom-right: image-seeded, generated at 2048×2048 (C21, DINOv2). No patch boundaries visible in any. Code for these results to be published soon. More in the <a href="#seamless-gallery">seamless outputs gallery</a>.</em></td>
   </tr>
 </table>
 
@@ -416,60 +420,190 @@ bash hpc/clip.sh                               # reads .env, self-submits via sb
 <details>
 <summary><strong><a id="seamless-gallery"></a>Seamless outputs gallery — later experiments (C27 &amp; C21 v3)</strong></summary>
 
-These outputs are from two follow-up experiments run after the main write-up. Both models generate seamless canvases with no visible patch boundaries. Creating coherent objects remains the open problem.
+Outputs from two follow-up experiments. Both models generate seamless canvases with no visible patch boundaries. Creating coherent objects remains the open problem.
 
-### C27 — Weaning curriculum (progressive canvas-guide blur)
+**C27** adds a training schedule that progressively destroys the canvas-guide spatial scaffold, forcing the model to generate structure from scratch. **C21 v3** (DINOv2 backbone, 700 epochs) trains a single model in plan mode and detail mode, and is tested here across multiple inference modes.
 
-C27 adds a training schedule that gradually destroys the spatial scaffold (canvas-guide) the model normally receives, forcing it to learn seamless generation without external help. Outputs below are 1024×1024, fully seedless (no seed image, no canvas guide).
+### Seedless — no input image, no canvas guide
 
 <table>
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c27_s1.png" width="220"><br><em>Seedless, s1</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s2.png" width="220"><br><em>Seedless, s2</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s3.png" width="220"><br><em>Seedless, s3</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s4.png" width="220"><br><em>Seedless, s4</em></td>
+    <td align="center"><img src="assets/c27t1_seedless_1024_gen_s3.png" width="380"><br><em>C27, seedless 1024², s3</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M2_plan_uncond_s1.png" width="380"><br><em>C21 v3, plan-uncond, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c27_s5.png" width="220"><br><em>Seedless, s5</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s6.png" width="220"><br><em>Seedless, s6</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s7.png" width="220"><br><em>Seedless, s7</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_s8.png" width="220"><br><em>Seedless, s8</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M2_plan_uncond_s2.png" width="380"><br><em>C21 v3, plan-uncond, s2</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M2_plan_uncond_s7.png" width="380"><br><em>C21 v3, plan-uncond, s7</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c27_perlin_s1.png" width="220"><br><em>Perlin noise, s1</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_perlin_s2.png" width="220"><br><em>Perlin noise, s2</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_fbm_s1.png" width="220"><br><em>fBm noise, s1</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c27_fbm_s2.png" width="220"><br><em>fBm noise, s2</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M1_progressive_s5.png" width="380"><br><em>C21 v3, progressive, s5</em></td>
+    <td align="center"><img src="assets/c21_sweep_wild_J_noise-fbm_s1.png" width="380"><br><em>C21 v3, fBm noise prior, s1</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/c21v3_seedless_512_gen_s4.png" width="380"><br><em>C21 v3, seedless 512², s4</em></td>
+    <td></td>
   </tr>
 </table>
 
-### C21 v3 — Plan-then-detail cascade (extended training)
+### Image-seeded — with canvas guide
 
-C21 v3 trains a single model in two modes: a plan mode that generates a low-resolution scene layout from CLIP, and a detail mode that refines it autoregressively. This variant ran for 700 epochs. Outputs below are 512×512, fully seedless.
+The model receives a seed image as the DINOv2 embedding and a matching canvas guide (low-frequency spatial scaffold). Each row shows the seed image alongside a generated output.
 
 <table>
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s1.png" width="220"><br><em>Seedless, s1</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s2.png" width="220"><br><em>Seedless, s2</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s3.png" width="220"><br><em>Seedless, s3</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s4.png" width="220"><br><em>Seedless, s4</em></td>
+    <td align="center"><img src="assets/seed_omid-cat.jpg" width="380"><br><em>Seed: cat</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-cat_s1.png" width="380"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s5.png" width="220"><br><em>Seedless, s5</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s6.png" width="220"><br><em>Seedless, s6</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s7.png" width="220"><br><em>Seedless, s7</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_s8.png" width="220"><br><em>Seedless, s8</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-leaf_s1.png" width="380"><br><em>Generated, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_perlin_s1.png" width="220"><br><em>Perlin noise, s1</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_perlin_s2.png" width="220"><br><em>Perlin noise, s2</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_fbm_s1.png" width="220"><br><em>fBm noise, s1</em></td>
-    <td align="center"><img src="assets/gallery_seamless_c21v3_fbm_s2.png" width="220"><br><em>fBm noise, s2</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-leaf_s2.png" width="380"><br><em>Generated, s2</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-leaf_s1.png" width="380"><br><em>Generated, s3</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-leaf_s2.png" width="380"><br><em>Generated, s4</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-leaf_s4.png" width="380"><br><em>Generated, s5</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-umbrella_s1.png" width="380"><br><em>Generated, s1</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/c21_dino_fullinf_M3_imgctx_omid-umbrella_s2.png" width="380"><br><em>Generated, s2</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/c21_dino_standard_A_M3_omid-umbrella_s2.png" width="380"><br><em>Generated, s3</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="380"><br><em>Seed: blurred</em></td>
+    <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-blurred_s1.png" width="380"><br><em>Generated, s1</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="380"><br><em>Seed: blurred</em></td>
+    <td align="center"><img src="assets/c21_dino_standard_A_M3_omid-blurred_s1.png" width="380"><br><em>Generated, s2</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" width="380"><br><em>Seed: purple</em></td>
+    <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-purple_s3.png" width="380"><br><em>Generated, s1</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" width="380"><br><em>Seed: purple</em></td>
+    <td align="center"><img src="assets/c21_dino_standard_A_M3_omid-purple_s3.png" width="380"><br><em>Generated, s2</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-trunk.jpg" width="380"><br><em>Seed: trunk</em></td>
+    <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-trunk_s2.png" width="380"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_3043.jpg" width="380"><br><em>Seed: COCO image</em></td>
+    <td align="center"><img src="assets/c21v3_imgseed_3043_gen_s4.png" width="380"><br><em>Generated</em></td>
+  </tr>
+</table>
+
+### Image-seeded — no canvas guide
+
+The DINOv2 embedding comes from a seed image but no spatial scaffold is provided. The model must generate structure from the embedding alone.
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-cat.jpg" width="380"><br><em>Seed: cat</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M4_imgctx_noguide_omid-cat_s2.png" width="380"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M4_imgctx_noguide_omid-leaf_s1.png" width="380"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M4_imgctx_noguide_omid-umbrella_s1.png" width="380"><br><em>Generated</em></td>
+  </tr>
+</table>
+
+### Plan mode
+
+The model generates a low-resolution plan first, then refines it autoregressively. Text prompts use CLIP text embeddings; image prompts use DINOv2.
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_planinf_B_imgclip_omid-leaf_s1.png" width="380"><br><em>Image plan: leaf</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M5_imgctx_plan_omid-leaf_s1.png" width="380"><br><em>Image + plan, s1</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M5_imgctx_plan_omid-leaf_s2.png" width="380"><br><em>Image + plan, s2</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_arbsize_E_cascade128_omid-leaf_s1.png" width="380"><br><em>Cascade plan 128→512, s1</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/c21_sweep_arbsize_E_cascade128_omid-leaf_s2.png" width="380"><br><em>Cascade plan 128→512, s2</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/c21_sweep_fullinf_M5_imgctx_plan_omid-umbrella_s1.png" width="380"><br><em>Image + plan</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-cat.jpg" width="380"><br><em>Seed: cat</em></td>
+    <td align="center"><img src="assets/c21_sweep_arbsize_E_cascade128_omid-cat_s2.png" width="380"><br><em>Cascade plan 128→512</em></td>
+  </tr>
+  <tr>
+    <td align="center"><em>Text: "building"</em></td>
+    <td align="center"><img src="assets/c21_sweep_planinf_A_text_building_s1.png" width="380"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><em>Text: "sunset lake"</em></td>
+    <td align="center"><img src="assets/c21_sweep_planinf_A_text_sunset_lake_s2.png" width="380"><br><em>Generated</em></td>
+  </tr>
+</table>
+
+### Mismatched CLIP + canvas guide
+
+The embedding comes from one image and the canvas guide from a different image. Each row shows both inputs and the generated output.
+
+<table>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" width="245"><br><em>CLIP embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/c21_sweep_wild_H_CLIP-omid-purple_GUIDE-omid-blurred_s1.png" width="245"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="245"><br><em>CLIP embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/c21_sweep_wild_H_CLIP-omid-leaf_GUIDE-omid-umbrella_s2.png" width="245"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="245"><br><em>CLIP embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/c21_sweep_wild_H_CLIP-omid-umbrella_GUIDE-omid-leaf_s2.png" width="245"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" width="245"><br><em>DINOv2 embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/c21_dino_wild_H_EMB-omid-purple_GUIDE-omid-blurred_s1.png" width="245"><br><em>Generated</em></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="245"><br><em>DINOv2 embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/c21_dino_wild_H_EMB-omid-umbrella_GUIDE-omid-leaf_s1.png" width="245"><br><em>Generated</em></td>
   </tr>
 </table>
 
 </details>
-
-## Acknowledgments
-
-This research was enabled in part by support provided by the Digital Research Alliance of Canada ([alliancecan.ca](https://alliancecan.ca)).
