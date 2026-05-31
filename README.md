@@ -451,63 +451,63 @@ The model receives a seed image as the DINOv2 embedding and a matching canvas gu
 
 <table>
   <tr>
-    <td align="center"><img src="assets/seed_omid-cat.jpg" width="380"><br><em>Seed: cat</em></td>
+    <td align="center"><img src="assets/seed_omid-cat.jpg" height="380"><br><em>Seed: cat</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-cat_s1.png" width="380"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-leaf_s1.png" width="380"><br><em>Generated, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-leaf_s2.png" width="380"><br><em>Generated, s2</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-leaf_s1.png" width="380"><br><em>Generated, s3</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-leaf_s2.png" width="380"><br><em>Generated, s4</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-leaf_s4.png" width="380"><br><em>Generated, s5</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="380"><br><em>Seed: umbrella</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M3_imgctx_omid-umbrella_s1.png" width="380"><br><em>Generated, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="380"><br><em>Seed: umbrella</em></td>
     <td align="center"><img src="assets/c21_dino_fullinf_M3_imgctx_omid-umbrella_s2.png" width="380"><br><em>Generated, s2</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="380"><br><em>Seed: umbrella</em></td>
     <td align="center"><img src="assets/c21_dino_standard_A_M3_omid-umbrella_s2.png" width="380"><br><em>Generated, s3</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="380"><br><em>Seed: blurred</em></td>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" height="380"><br><em>Seed: blurred</em></td>
     <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-blurred_s1.png" width="380"><br><em>Generated, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="380"><br><em>Seed: blurred</em></td>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" height="380"><br><em>Seed: blurred</em></td>
     <td align="center"><img src="assets/c21_dino_standard_A_M3_omid-blurred_s1.png" width="380"><br><em>Generated, s2</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-purple.jpg" width="380"><br><em>Seed: purple</em></td>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" height="380"><br><em>Seed: purple</em></td>
     <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-purple_s3.png" width="380"><br><em>Generated, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-purple.jpg" width="380"><br><em>Seed: purple</em></td>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" height="380"><br><em>Seed: purple</em></td>
     <td align="center"><img src="assets/c21_dino_standard_A_M3_omid-purple_s3.png" width="380"><br><em>Generated, s2</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-trunk.jpg" width="380"><br><em>Seed: trunk</em></td>
+    <td align="center"><img src="assets/seed_omid-trunk.jpg" height="380"><br><em>Seed: trunk</em></td>
     <td align="center"><img src="assets/c21_sweep_standard_A_M3_omid-trunk_s2.png" width="380"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_3043.jpg" width="380"><br><em>Seed: COCO image</em></td>
+    <td align="center"><img src="assets/seed_3043.jpg" height="380"><br><em>Seed: COCO image</em></td>
     <td align="center"><img src="assets/c21v3_imgseed_3043_gen_s4.png" width="380"><br><em>Generated</em></td>
   </tr>
 </table>
@@ -518,15 +518,15 @@ The DINOv2 embedding comes from a seed image but no spatial scaffold is provided
 
 <table>
   <tr>
-    <td align="center"><img src="assets/seed_omid-cat.jpg" width="380"><br><em>Seed: cat</em></td>
+    <td align="center"><img src="assets/seed_omid-cat.jpg" height="380"><br><em>Seed: cat</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M4_imgctx_noguide_omid-cat_s2.png" width="380"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M4_imgctx_noguide_omid-leaf_s1.png" width="380"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="380"><br><em>Seed: umbrella</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M4_imgctx_noguide_omid-umbrella_s1.png" width="380"><br><em>Generated</em></td>
   </tr>
 </table>
@@ -537,31 +537,31 @@ The model generates a low-resolution plan first, then refines it autoregressivel
 
 <table>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_planinf_B_imgclip_omid-leaf_s1.png" width="380"><br><em>Image plan: leaf</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M5_imgctx_plan_omid-leaf_s1.png" width="380"><br><em>Image + plan, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M5_imgctx_plan_omid-leaf_s2.png" width="380"><br><em>Image + plan, s2</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_arbsize_E_cascade128_omid-leaf_s1.png" width="380"><br><em>Cascade plan 128→512, s1</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="380"><br><em>Seed: leaf</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="380"><br><em>Seed: leaf</em></td>
     <td align="center"><img src="assets/c21_sweep_arbsize_E_cascade128_omid-leaf_s2.png" width="380"><br><em>Cascade plan 128→512, s2</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="380"><br><em>Seed: umbrella</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="380"><br><em>Seed: umbrella</em></td>
     <td align="center"><img src="assets/c21_sweep_fullinf_M5_imgctx_plan_omid-umbrella_s1.png" width="380"><br><em>Image + plan</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-cat.jpg" width="380"><br><em>Seed: cat</em></td>
+    <td align="center"><img src="assets/seed_omid-cat.jpg" height="380"><br><em>Seed: cat</em></td>
     <td align="center"><img src="assets/c21_sweep_arbsize_E_cascade128_omid-cat_s2.png" width="380"><br><em>Cascade plan 128→512</em></td>
   </tr>
   <tr>
@@ -580,28 +580,28 @@ The embedding comes from one image and the canvas guide from a different image. 
 
 <table>
   <tr>
-    <td align="center"><img src="assets/seed_omid-purple.jpg" width="245"><br><em>CLIP embedding</em></td>
-    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" height="245"><br><em>CLIP embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" height="245"><br><em>Canvas guide</em></td>
     <td align="center"><img src="assets/c21_sweep_wild_H_CLIP-omid-purple_GUIDE-omid-blurred_s1.png" width="245"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="245"><br><em>CLIP embedding</em></td>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="245"><br><em>CLIP embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="245"><br><em>Canvas guide</em></td>
     <td align="center"><img src="assets/c21_sweep_wild_H_CLIP-omid-leaf_GUIDE-omid-umbrella_s2.png" width="245"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="245"><br><em>CLIP embedding</em></td>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="245"><br><em>CLIP embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="245"><br><em>Canvas guide</em></td>
     <td align="center"><img src="assets/c21_sweep_wild_H_CLIP-omid-umbrella_GUIDE-omid-leaf_s2.png" width="245"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-purple.jpg" width="245"><br><em>DINOv2 embedding</em></td>
-    <td align="center"><img src="assets/seed_omid-blurred.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/seed_omid-purple.jpg" height="245"><br><em>DINOv2 embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-blurred.jpg" height="245"><br><em>Canvas guide</em></td>
     <td align="center"><img src="assets/c21_dino_wild_H_EMB-omid-purple_GUIDE-omid-blurred_s1.png" width="245"><br><em>Generated</em></td>
   </tr>
   <tr>
-    <td align="center"><img src="assets/seed_omid-umbrella.jpg" width="245"><br><em>DINOv2 embedding</em></td>
-    <td align="center"><img src="assets/seed_omid-leaf.jpg" width="245"><br><em>Canvas guide</em></td>
+    <td align="center"><img src="assets/seed_omid-umbrella.jpg" height="245"><br><em>DINOv2 embedding</em></td>
+    <td align="center"><img src="assets/seed_omid-leaf.jpg" height="245"><br><em>Canvas guide</em></td>
     <td align="center"><img src="assets/c21_dino_wild_H_EMB-omid-umbrella_GUIDE-omid-leaf_s1.png" width="245"><br><em>Generated</em></td>
   </tr>
 </table>
